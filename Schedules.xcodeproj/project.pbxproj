@@ -7,21 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E42C616C2198F2B0002696AE /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C616B2198F2B0002696AE /* Task.swift */; };
+		E42C616E21990A6C002696AE /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C616D21990A6C002696AE /* CreateTaskViewController.swift */; };
+		E42C617021990A87002696AE /* CreateTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C616F21990A87002696AE /* CreateTaskView.swift */; };
+		E42C617221990CE1002696AE /* SlideOutCreationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C617121990CE1002696AE /* SlideOutCreationMenu.swift */; };
+		E42C617421990DB1002696AE /* SlideOutMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C617321990DB1002696AE /* SlideOutMenuViewController.swift */; };
 		E4543FC121950EBF004B2540 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4543FC021950EBF004B2540 /* AppDelegate.swift */; };
-		E4543FC321950EBF004B2540 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4543FC221950EBF004B2540 /* ViewController.swift */; };
-		E4543FC621950EBF004B2540 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4543FC421950EBF004B2540 /* Main.storyboard */; };
+		E4543FC321950EBF004B2540 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4543FC221950EBF004B2540 /* HomeViewController.swift */; };
 		E4543FC821950EC1004B2540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4543FC721950EC1004B2540 /* Assets.xcassets */; };
 		E4543FCB21950EC1004B2540 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4543FC921950EC1004B2540 /* LaunchScreen.storyboard */; };
+		E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E48C5793219A4E5700D2019F /* Schedules.xcdatamodeld */; };
+		E4ADA2D8219BDDB0006C6426 /* UIColor-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ADA2D7219BDDB0006C6426 /* UIColor-Extensions.swift */; };
+		E4ADA2DA219BDE5C006C6426 /* HomeViewController-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ADA2D9219BDE5C006C6426 /* HomeViewController-Extensions.swift */; };
+		E4BD15A921974151000B974F /* ScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */; };
+		E4BD15B021976B3F000B974F /* CreateScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BD15AF21976B3F000B974F /* CreateScheduleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E42C616B2198F2B0002696AE /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		E42C616D21990A6C002696AE /* CreateTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
+		E42C616F21990A87002696AE /* CreateTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskView.swift; sourceTree = "<group>"; };
+		E42C617121990CE1002696AE /* SlideOutCreationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutCreationMenu.swift; sourceTree = "<group>"; };
+		E42C617321990DB1002696AE /* SlideOutMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutMenuViewController.swift; sourceTree = "<group>"; };
 		E4543FBD21950EBF004B2540 /* Schedules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Schedules.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4543FC021950EBF004B2540 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E4543FC221950EBF004B2540 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E4543FC521950EBF004B2540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E4543FC221950EBF004B2540 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E4543FC721950EC1004B2540 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4543FCA21950EC1004B2540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4543FCC21950EC1004B2540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E48C5794219A4E5700D2019F /* Schedule.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Schedule.xcdatamodel; sourceTree = "<group>"; };
+		E4ADA2D7219BDDB0006C6426 /* UIColor-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extensions.swift"; sourceTree = "<group>"; };
+		E4ADA2D9219BDE5C006C6426 /* HomeViewController-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController-Extensions.swift"; sourceTree = "<group>"; };
+		E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
+		E4BD15AF21976B3F000B974F /* CreateScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScheduleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +72,55 @@
 		E4543FBF21950EBF004B2540 /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
+				E4ADA2D6219BDD91006C6426 /* Helpers */,
+				E4BD15AC21976759000B974F /* ViewController */,
+				E4BD15AB21976754000B974F /* View */,
+				E4BD15AA2197674D000B974F /* Model */,
 				E4543FC021950EBF004B2540 /* AppDelegate.swift */,
-				E4543FC221950EBF004B2540 /* ViewController.swift */,
-				E4543FC421950EBF004B2540 /* Main.storyboard */,
+				E48C5793219A4E5700D2019F /* Schedules.xcdatamodeld */,
 				E4543FC721950EC1004B2540 /* Assets.xcassets */,
 				E4543FC921950EC1004B2540 /* LaunchScreen.storyboard */,
 				E4543FCC21950EC1004B2540 /* Info.plist */,
 			);
 			path = Schedules;
+			sourceTree = "<group>";
+		};
+		E4ADA2D6219BDD91006C6426 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E4ADA2D7219BDDB0006C6426 /* UIColor-Extensions.swift */,
+				E4ADA2D9219BDE5C006C6426 /* HomeViewController-Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E4BD15AA2197674D000B974F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E42C616B2198F2B0002696AE /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E4BD15AB21976754000B974F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */,
+				E4BD15AF21976B3F000B974F /* CreateScheduleView.swift */,
+				E42C616F21990A87002696AE /* CreateTaskView.swift */,
+				E42C617121990CE1002696AE /* SlideOutCreationMenu.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4BD15AC21976759000B974F /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E4543FC221950EBF004B2540 /* HomeViewController.swift */,
+				E42C616D21990A6C002696AE /* CreateTaskViewController.swift */,
+				E42C617321990DB1002696AE /* SlideOutMenuViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +183,6 @@
 			files = (
 				E4543FCB21950EC1004B2540 /* LaunchScreen.storyboard in Resources */,
 				E4543FC821950EC1004B2540 /* Assets.xcassets in Resources */,
-				E4543FC621950EBF004B2540 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,22 +193,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4543FC321950EBF004B2540 /* ViewController.swift in Sources */,
+				E42C617421990DB1002696AE /* SlideOutMenuViewController.swift in Sources */,
+				E4543FC321950EBF004B2540 /* HomeViewController.swift in Sources */,
+				E4BD15B021976B3F000B974F /* CreateScheduleView.swift in Sources */,
+				E42C617221990CE1002696AE /* SlideOutCreationMenu.swift in Sources */,
+				E4BD15A921974151000B974F /* ScheduleCollectionViewCell.swift in Sources */,
+				E42C616C2198F2B0002696AE /* Task.swift in Sources */,
+				E4ADA2D8219BDDB0006C6426 /* UIColor-Extensions.swift in Sources */,
+				E4ADA2DA219BDE5C006C6426 /* HomeViewController-Extensions.swift in Sources */,
+				E42C617021990A87002696AE /* CreateTaskView.swift in Sources */,
 				E4543FC121950EBF004B2540 /* AppDelegate.swift in Sources */,
+				E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */,
+				E42C616E21990A6C002696AE /* CreateTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E4543FC421950EBF004B2540 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4543FC521950EBF004B2540 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E4543FC921950EC1004B2540 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -336,6 +396,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E48C5793219A4E5700D2019F /* Schedules.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E48C5794219A4E5700D2019F /* Schedule.xcdatamodel */,
+			);
+			currentVersion = E48C5794219A4E5700D2019F /* Schedule.xcdatamodel */;
+			path = Schedules.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E4543FB521950EBF004B2540 /* Project object */;
 }
