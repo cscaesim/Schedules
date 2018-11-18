@@ -9,23 +9,40 @@
 import UIKit
 import CoreData
 
+
+var randomColors = [UIColor.init(red: 33/255, green: 150/255, blue: 243/255, alpha: 1.0),
+                    UIColor.init(red: 76/255, green: 75/255, blue: 150/255, alpha: 1.0),
+                    UIColor.init(red: 255/255, green: 152/255, blue: 0/255, alpha: 1.0),
+                    UIColor.init(red: 103/255, green: 58/255, blue: 183/255, alpha: 1.0)]
+
 class HomeViewController: UICollectionViewController {
     
     private var cellId = "cellID"
     
     var schedules: [NSManagedObject] = []
+    
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("View did load")
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(notification:)), name: NSNotification.Name("reload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        navigationItem.title = "Schedules"
+        navigationController?.navigationBar.barTintColor = randomColors[0]
+        navigationController?.navigationBar.barStyle = .black
+        
         
         collectionView.register(ScheduleCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
-        self.view.backgroundColor = UIColor.white
-        collectionView.backgroundColor = UIColor.white
-        
-        print(schedules.count)
+        collectionView.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
 
     }
     
@@ -111,6 +128,32 @@ class HomeViewController: UICollectionViewController {
 
 }
 
+extension HomeViewController {
+    @objc func keyboardWillShow(notification:NSNotification) {
+        print("keyboard shown")
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification) {
+        print("Keyboard dismissed")
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,11 +169,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 10, height: 100)
+        return CGSize(width: view.frame.width, height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -142,7 +185,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 5.0, bottom: 0.0, right: 0.0)
+        return UIEdgeInsets(top: 0, left: 0.0, bottom: 0.0, right: 0.0)
     }
 }
 
