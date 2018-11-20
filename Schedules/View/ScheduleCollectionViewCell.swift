@@ -10,6 +10,8 @@ import UIKit
 
 class ScheduleCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     
+    var pan: UIPanGestureRecognizer!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -25,14 +27,24 @@ class ScheduleCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
         
         addSubview(nameLabel)
         addSubview(countLabel)
+        self.insertSubview(deleteLabel, belowSubview: self.contentView)
         
-        self.backgroundColor = UIColor.white
+        self.contentView.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.red
+        
+        pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        pan.delegate = self
+        self.addGestureRecognizer(pan)
         setupViews()
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func commonInit() {
+        
     }
     
     let nameLabel : UILabel = {
@@ -42,6 +54,14 @@ class ScheduleCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
         lb.font = UIFont(name: "HelveticaNeue", size: 24)
         //lb.textColor = UIColor.white
         return lb
+    }()
+    
+    let deleteLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Delete"
+        label.textColor = UIColor.white
+        
+        return label
     }()
     
     let countLabel: UILabel = {
@@ -70,6 +90,56 @@ class ScheduleCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
         countLabel.widthAnchor.constraint(equalToConstant: 20).isActive = true
         //countLabel.leftAnchor.constraint(equalTo: nameLabel.leftAnchor, constant: 5).isActive = true
         
+        
+        //Setup delete label hidden underneath
+        
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if (pan.state == UIGestureRecognizer.State.changed) {
+            let velocity: CGPoint = pan.velocity(in: self.contentView)
+            if velocity.x < 0 {
+                countLabel.isHidden = true
+                let p: CGPoint = pan.translation(in: self)
+                let width = self.contentView.frame.width
+                let height = self.contentView.frame.height
+                self.contentView.frame = CGRect(x: p.x,y: 0, width: width, height: height);
+                //self.deleteLabel.frame = CGRect(x: p.x - deleteLabel.frame.size.width-10, y: 0, width: 100, height: height)
+                self.deleteLabel.frame = CGRect(x: p.x + width + deleteLabel.frame.size.width, y: 0, width: 100, height: height)
+            } else {
+                countLabel.isHidden = false
+            }
+        } else {
+            countLabel.isHidden = false
+        }
+    }
+    
+    @objc func onPan(_ pan: UIPanGestureRecognizer) {
+        if pan.state == UIGestureRecognizer.State.began {
+            
+        } else if pan.state == UIGestureRecognizer.State.changed {
+            self.setNeedsLayout()
+        } else {
+            if abs(pan.velocity(in: self).x) > 500 {
+                let collectionView: UICollectionView = self.superview as! UICollectionView
+                let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
+                collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onPan(_:)), forItemAt: indexPath, withSender: nil)
+            } else {
+                UIView.animate(withDuration: 0.2) {
+                    self.setNeedsLayout()
+                    self.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
     }
     
 }

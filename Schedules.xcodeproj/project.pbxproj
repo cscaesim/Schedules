@@ -19,6 +19,8 @@
 		E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E48C5793219A4E5700D2019F /* Schedules.xcdatamodeld */; };
 		E4ADA2D8219BDDB0006C6426 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ADA2D7219BDDB0006C6426 /* UIColor+Extensions.swift */; };
 		E4BD15A921974151000B974F /* ScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */; };
+		E4E0D4E621A3935F00A9B593 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D4E521A3935F00A9B593 /* TaskListViewController.swift */; };
+		E4E0D4E821A3939B00A9B593 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D4E721A3939B00A9B593 /* TaskListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		E48C5794219A4E5700D2019F /* Schedule.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Schedule.xcdatamodel; sourceTree = "<group>"; };
 		E4ADA2D7219BDDB0006C6426 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
+		E4E0D4E521A3935F00A9B593 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
+		E4E0D4E721A3939B00A9B593 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				E4ADA2D6219BDD91006C6426 /* Helpers */,
-				E4BD15AC21976759000B974F /* ViewController */,
+				E4BD15AC21976759000B974F /* Controller */,
 				E4BD15AB21976754000B974F /* View */,
 				E4BD15AA2197674D000B974F /* Model */,
 				E4543FC021950EBF004B2540 /* AppDelegate.swift */,
@@ -103,18 +107,20 @@
 				E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */,
 				E42C616F21990A87002696AE /* CreateTaskView.swift */,
 				E42C617121990CE1002696AE /* SlideOutCreationMenu.swift */,
+				E4E0D4E721A3939B00A9B593 /* TaskListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		E4BD15AC21976759000B974F /* ViewController */ = {
+		E4BD15AC21976759000B974F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				E4543FC221950EBF004B2540 /* HomeViewController.swift */,
 				E42C616D21990A6C002696AE /* CreateTaskViewController.swift */,
 				E42C617321990DB1002696AE /* SlideOutMenuViewController.swift */,
+				E4E0D4E521A3935F00A9B593 /* TaskListViewController.swift */,
 			);
-			path = ViewController;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,12 +194,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E42C617421990DB1002696AE /* SlideOutMenuViewController.swift in Sources */,
+				E4E0D4E621A3935F00A9B593 /* TaskListViewController.swift in Sources */,
 				E4543FC321950EBF004B2540 /* HomeViewController.swift in Sources */,
 				E42C617221990CE1002696AE /* SlideOutCreationMenu.swift in Sources */,
 				E4BD15A921974151000B974F /* ScheduleCollectionViewCell.swift in Sources */,
 				E42C616C2198F2B0002696AE /* Task.swift in Sources */,
 				E4ADA2D8219BDDB0006C6426 /* UIColor+Extensions.swift in Sources */,
 				E42C617021990A87002696AE /* CreateTaskView.swift in Sources */,
+				E4E0D4E821A3939B00A9B593 /* TaskListTableViewCell.swift in Sources */,
 				E4543FC121950EBF004B2540 /* AppDelegate.swift in Sources */,
 				E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */,
 				E42C616E21990A6C002696AE /* CreateTaskViewController.swift in Sources */,

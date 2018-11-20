@@ -20,14 +20,17 @@ class HomeViewController: UICollectionViewController {
     private var cellId = "cellID"
     
     var schedules: [NSManagedObject] = []
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfEmpty()
+        
+        
         print("View did load")
+        
+        for object in schedules {
+            print(object)
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(notification:)), name: NSNotification.Name("reload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -35,6 +38,11 @@ class HomeViewController: UICollectionViewController {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        let panCellGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(panCell))
+        panCellGesture.delegate = self
+        self.collectionView.addGestureRecognizer(panCellGesture)
+        
         navigationItem.title = "Schedules"
         navigationController?.navigationBar.barTintColor = randomColors[0]
         navigationController?.navigationBar.barStyle = .black
@@ -51,15 +59,10 @@ class HomeViewController: UICollectionViewController {
         
         resetTableData()
         
-        if schedules.isEmpty {
-            collectionView.setEmptyMessage()
-        } else {
-            collectionView.restore()
-        }
+        checkIfEmpty()
         
         collectionView.reloadData()
-        
-       
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,6 +101,7 @@ class HomeViewController: UICollectionViewController {
         }
         
         collectionView.reloadData()
+        checkIfEmpty()
     }
     
     public func save(name: String) {
@@ -124,8 +128,47 @@ class HomeViewController: UICollectionViewController {
         }
     }
     
+    public func delete(path: Int) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Schedule")
+        
+        do {
+            let test = try managedContext.fetch(fetchRequest)
+            let objectToDelete = test[path] as! NSManagedObject
+            managedContext.delete(objectToDelete)
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print(error)
+            }
+        } catch let error as NSError {
+            print(error )
+        }
+        
+        resetTableData()
+    }
     
-
+    func checkIfEmpty() {
+        if schedules.isEmpty {
+            collectionView.setEmptyMessage()
+        } else {
+            collectionView.restore()
+        }
+    }
+    
+    @objc func panCell() {
+        
+    }
+    
+    func deleteCell() {
+        
+    }
 }
 
 extension HomeViewController {
@@ -168,6 +211,13 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return schedules.count
     }
     
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print("supposed to delete \(indexPath.row)")
+        let schedule = schedules[indexPath.row]
+        let name = schedule.value(forKey: "name") as? String
+        delete(path: indexPath.row)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 70)
     }
@@ -186,6 +236,34 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+    
+   
+}
+
+
+
+extension HomeViewController {
+    func addSlideOutMenu() {
+        let bottomViewVC = SlideOutMenuViewController()
+
+        self.addChild(bottomViewVC)
+        self.view.addSubview(bottomViewVC.view)
+        bottomViewVC.didMove(toParent: self)
+        
+        let height = view.frame.height
+        let width = view.frame.width
+        
+        bottomViewVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+    }
+    
+}
+
+extension HomeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        //IF FALSE DISABLED COLLECTIONVIEW VERTICAL SCROLLING
+        return true
     }
 }
 
@@ -206,20 +284,5 @@ extension UICollectionView {
     
     func restore() {
         self.backgroundView = nil
-    }
-}
-
-extension HomeViewController {
-    func addSlideOutMenu() {
-        let bottomViewVC = SlideOutMenuViewController()
-
-        self.addChild(bottomViewVC)
-        self.view.addSubview(bottomViewVC.view)
-        bottomViewVC.didMove(toParent: self)
-        
-        let height = view.frame.height
-        let width = view.frame.width
-        
-        bottomViewVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
 }
