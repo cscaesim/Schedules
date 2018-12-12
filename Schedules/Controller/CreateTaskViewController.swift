@@ -9,6 +9,7 @@
 import UIKit
 
 class CreateTaskViewController: UIViewController {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,5 +19,10 @@ class CreateTaskViewController: UIViewController {
     
     override func loadView() {
         self.view = CreateTaskView()
+    }
+    
+    
+    func createTask() {
+        
     }
 }

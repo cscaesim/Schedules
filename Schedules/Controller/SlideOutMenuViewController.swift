@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreData
+//import CoreData
 
 class SlideOutMenuViewController: UIViewController {
     
@@ -119,6 +119,4 @@ extension SlideOutMenuViewController {
             }, completion: nil)
         }
     }
-    
- 
 }

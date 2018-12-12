@@ -14,7 +14,6 @@ class CreateTaskView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor.gray.cgColor
         view.layer.borderWidth = 5.0
         view.layer.masksToBounds = true
         //view.backgroundColor = UIColor.blue
@@ -65,6 +64,7 @@ class CreateTaskView: UIView {
         let switcher = UISwitch()
         switcher.translatesAutoresizingMaskIntoConstraints = false
         switcher.backgroundColor = UIColor.white
+        switcher.layoutMargins.top = 50
         return switcher
     }()
     
@@ -82,12 +82,13 @@ class CreateTaskView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
         
         addSubview(titleTextField)
         addSubview(datePicker)
         addSubview(notificationToggle)
         addSubview(reminderLabel)
+        addSubview(createButton)
         
         
         setupViews()
@@ -101,10 +102,10 @@ class CreateTaskView: UIView {
     
     func setupViews() {
         
-        let reminderHeight: CGFloat = 50
+        let reminderHeight: CGFloat = 31
         
         //noteTextField
-        titleTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 120).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         titleTextField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         titleTextField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         titleTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -121,12 +122,17 @@ class CreateTaskView: UIView {
         notificationToggle.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         notificationToggle.heightAnchor.constraint(equalToConstant: reminderHeight).isActive = true
         
-        
-        
         //date picker
         datePicker.topAnchor.constraint(equalTo: notificationToggle.bottomAnchor, constant: 35).isActive = true
         datePicker.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         datePicker.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         datePicker.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        //
+        createButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 100).isActive = true
+        createButton.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        createButton.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        createButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        createButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 250).isActive = true
     }
 }

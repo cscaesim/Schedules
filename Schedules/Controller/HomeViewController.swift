@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import CoreData
+//import CoreData
+import RealmSwift
 
 
 var randomColors = [UIColor.init(red: 33/255, green: 150/255, blue: 243/255, alpha: 1.0),
@@ -15,30 +16,35 @@ var randomColors = [UIColor.init(red: 33/255, green: 150/255, blue: 243/255, alp
                     UIColor.init(red: 255/255, green: 152/255, blue: 0/255, alpha: 1.0),
                     UIColor.init(red: 103/255, green: 58/255, blue: 183/255, alpha: 1.0)]
 
+var scheduleName: String!
+
 class HomeViewController: UICollectionViewController {
     
     private var cellId = "cellID"
     
-    var schedules: [NSManagedObject] = []
+    var schedules = [Schedule]()
+    var realm : Realm!
+    
+    var tap: UIGestureRecognizer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        realm = try! Realm()
         checkIfEmpty()
         
-        
-        print("View did load")
-        
-        for object in schedules {
-            print(object)
-        }
+        tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData(notification:)), name: NSNotification.Name("reload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        print("View did load")
+        let result = realm.objects(Schedule.self)
         
+        schedules = Array(result)
+
+        
+        //Gesture for swipe to delete
         let panCellGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(panCell))
         panCellGesture.delegate = self
         self.collectionView.addGestureRecognizer(panCellGesture)
@@ -48,17 +54,22 @@ class HomeViewController: UICollectionViewController {
         navigationController?.navigationBar.barStyle = .black
         
         
-        collectionView.register(ScheduleCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        
         
         collectionView.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
+        
+        addSlideOutMenu()
 
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.tintColor = nil
         
+        collectionView.register(ScheduleCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+
         resetTableData()
-        
+
         checkIfEmpty()
         
         collectionView.reloadData()
@@ -67,7 +78,6 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addSlideOutMenu()
     }
     
     @objc func reloadData(notification: NSNotification) {
@@ -86,73 +96,46 @@ class HomeViewController: UICollectionViewController {
     }
     
     func resetTableData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
+        realm = try! Realm()
+        
+        let results = realm.objects(Schedule.self)
+        let arrResults = Array(results)
+        print(results)
+    
+        
+        //print("This is the result \(schedules)")
+        
+//        DispatchQueue.main.async {
+//            self.collectionView.reloadData()
+//        }
+//
+        OperationQueue.main.addOperation {
+            self.collectionView.reloadData()
         }
         
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Schedule")
-        
-        do {
-            schedules = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("\(error),\(error.userInfo)")
-        }
-        
-        collectionView.reloadData()
         checkIfEmpty()
     }
     
     public func save(name: String) {
         print("This get called")
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
+        let newSchedule = Schedule()
+        
+        newSchedule.name = name
+        
+        let realm = try! Realm()
+        
+        schedules.append(newSchedule)
+        
+        try! realm.write {
+            realm.add(newSchedule)
         }
+
+        print("New Schedule created with name: \(name)")
         
-        let managedContext = appDelegate.persistentContainer.viewContext
         
-        let entity = NSEntityDescription.entity(forEntityName: "Schedule", in: managedContext)!
-        //let entity = NSEntityDescription.insertNewObject(forEntityName: "Schedule", into: managedContext)
-        
-        let schedule = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        schedule.setValue(name, forKey: "name")
-        
-        do {
-            try managedContext.save()
-            schedules.append(schedule)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
     }
     
-    public func delete(path: Int) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Schedule")
-        
-        do {
-            let test = try managedContext.fetch(fetchRequest)
-            let objectToDelete = test[path] as! NSManagedObject
-            managedContext.delete(objectToDelete)
-            
-            do {
-                try managedContext.save()
-            } catch let error as NSError {
-                print(error)
-            }
-        } catch let error as NSError {
-            print(error )
-        }
-        
-        resetTableData()
-    }
     
     func checkIfEmpty() {
         if schedules.isEmpty {
@@ -166,15 +149,22 @@ class HomeViewController: UICollectionViewController {
         
     }
     
-    func deleteCell() {
-        
+    func removeGesture() {
+        print("removing tap gesture for keyboard")
+        view.removeGestureRecognizer(tap)
     }
+    
+    func addGesture() {
+        view.addGestureRecognizer(tap)
+        print("Adding tap gesture for keyboard")
+    }
+    
 }
 
 extension HomeViewController {
     @objc func keyboardWillShow(notification:NSNotification) {
         print("keyboard shown")
-        
+        addGesture()
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
@@ -184,7 +174,7 @@ extension HomeViewController {
     
     @objc func keyboardWillHide(notification:NSNotification) {
         print("Keyboard dismissed")
-        
+        removeGesture()
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y += keyboardSize.height
@@ -199,11 +189,26 @@ extension HomeViewController {
 
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Did select row:\(indexPath.row)")
+        let schedule = schedules[indexPath.row]
+        
+        guard let name = schedule.value(forKey: "name") as? String else {
+            return
+        }
+        scheduleName = name
+        print(scheduleName)
+        let layout = UICollectionViewFlowLayout()
+        let taskViewController = TaskListViewController(collectionViewLayout: layout)
+        navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ScheduleCollectionViewCell
         let schedule = schedules[indexPath.row]
-        cell.nameLabel.text = schedule.value(forKeyPath: "name") as? String
+        cell.nameLabel.text = schedule.name
         return cell
     }
     
@@ -214,8 +219,19 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         print("supposed to delete \(indexPath.row)")
         let schedule = schedules[indexPath.row]
-        let name = schedule.value(forKey: "name") as? String
-        delete(path: indexPath.row)
+        _ = schedule.value(forKey: "name") as? String
+        
+        let item = schedules[indexPath.row]
+        schedules.remove(at: indexPath.row)
+        collectionView.reloadData()
+    
+        try! self.realm.write {
+            self.realm.delete(item)
+
+        }
+
+        collectionView.reloadData()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -224,10 +240,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

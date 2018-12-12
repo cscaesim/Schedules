@@ -34,6 +34,7 @@ class ScheduleCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
         
         pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         pan.delegate = self
+        pan.cancelsTouchesInView = false
         self.addGestureRecognizer(pan)
         setupViews()
         
@@ -135,11 +136,12 @@ class ScheduleCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return false
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
     }
+    
     
 }

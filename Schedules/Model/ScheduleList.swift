@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  ScheduleList.swift
 //  Schedules
 //
 //  Created by Caine Simpson on 11/24/18.
@@ -9,8 +9,9 @@
 import Foundation
 import RealmSwift
 
-class Task: Object {
+
+class ScheduleList: Object {
     @objc dynamic var name: String?
-    @objc dynamic var time: NSDate?
-    @objc dynamic var completed = false
+    
+    let schedules = List<Schedule>()
 }
