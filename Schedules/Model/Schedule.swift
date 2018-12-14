@@ -10,6 +10,6 @@ import RealmSwift
 
 class Schedule: Object {
     @objc dynamic var name: String?
-    let tasks = List<Task>()
+    var tasks = List<Task>()
     
 }

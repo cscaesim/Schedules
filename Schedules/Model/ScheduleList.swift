@@ -13,5 +13,5 @@ import RealmSwift
 class ScheduleList: Object {
     @objc dynamic var name: String?
     
-    let schedules = List<Schedule>()
+    var schedules = List<Schedule>()
 }

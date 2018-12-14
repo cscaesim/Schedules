@@ -35,10 +35,12 @@ class CreateTaskView: UIView {
         //        textField.placeholder = "Create Schedule"
         //        textField.borderStyle = .roundedRect
         //        textField.borderStyle = UITextField.BorderStyle.none
+        textField.text = "Title"
         textField.isEditable = true
         textField.font = UIFont(name: "HelveticaNeue", size: 18)
-        textField.textColor = UIColor.black
+        textField.textColor = UIColor.lightGray
         textField.backgroundColor = UIColor.white
+        textField.scrollsToTop = true
         return textField
     }()
     
@@ -102,13 +104,13 @@ class CreateTaskView: UIView {
     
     func setupViews() {
         
-        let reminderHeight: CGFloat = 31
+        let reminderHeight: CGFloat = 32
         
         //noteTextField
-        titleTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 70).isActive = true
         titleTextField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         titleTextField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        titleTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        titleTextField.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         //notification label
         reminderLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 35).isActive = true
@@ -123,16 +125,18 @@ class CreateTaskView: UIView {
         notificationToggle.heightAnchor.constraint(equalToConstant: reminderHeight).isActive = true
         
         //date picker
-        datePicker.topAnchor.constraint(equalTo: notificationToggle.bottomAnchor, constant: 35).isActive = true
+        datePicker.topAnchor.constraint(equalTo: notificationToggle.bottomAnchor, constant: 10).isActive = true
         datePicker.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         datePicker.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         datePicker.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
-        //
-        createButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 100).isActive = true
+        //Create button
+        //createButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 100).isActive = true
         createButton.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         createButton.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         createButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        createButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 250).isActive = true
+        createButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
     }
 }
+
+

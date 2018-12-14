@@ -17,7 +17,9 @@ class SlideOutMenuViewController: UIViewController {
         return UIScreen.main.bounds.height - 100
     }
     
-    var viewController = HomeViewController()
+    let layout = UICollectionViewFlowLayout()
+    
+    var viewController: HomeViewController!
     
     
     override func viewDidLoad() {
@@ -30,6 +32,8 @@ class SlideOutMenuViewController: UIViewController {
         
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(SlideOutMenuViewController.panGesture))
         view.addGestureRecognizer(gesture)
+        
+        viewController = HomeViewController(collectionViewLayout: layout)
         
     }
     

@@ -62,6 +62,14 @@ class HomeViewController: UICollectionViewController {
 
     }
     
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: layout)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.tintColor = nil
@@ -99,11 +107,8 @@ class HomeViewController: UICollectionViewController {
         realm = try! Realm()
         
         let results = realm.objects(Schedule.self)
-        let arrResults = Array(results)
+        schedules = Array(results)
         print(results)
-    
-        
-        //print("This is the result \(schedules)")
         
 //        DispatchQueue.main.async {
 //            self.collectionView.reloadData()
@@ -129,6 +134,7 @@ class HomeViewController: UICollectionViewController {
         
         try! realm.write {
             realm.add(newSchedule)
+            collectionView.reloadData()
         }
 
         print("New Schedule created with name: \(name)")

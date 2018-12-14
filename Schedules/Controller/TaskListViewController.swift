@@ -21,6 +21,10 @@ class TaskListViewController: UICollectionViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         navigationItem.title = scheduleName
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTask))
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: #selector(handleBack))
+        
+        
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         collectionView.layoutMargins.top = 20
         collectionView.register(TaskListCollectionViewCell.self, forCellWithReuseIdentifier: reuseId)
@@ -41,40 +45,16 @@ class TaskListViewController: UICollectionViewController {
     }
     
     func loadData() {
-//
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-//            return
-//        }
-//
-//        let context = appDelegate.persistentContainer.viewContext
-//
-//        print("This is the called name: \(scheduleName)")
-//        let predicate = NSPredicate(format: "name = %@", scheduleName)
-//
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Schedule")
-//        fetchRequest.predicate = predicate
-//
-//        var result = [NSManagedObject]()
-//
-//        do {
-//            let records = try context.fetch(Schedule.fetchRequest())
-//
-//            if let records = records as? [NSManagedObject] {
-//                result = records
-//                for item in result {
-//                    print(item)
-//                }
-//
-//            }
-//        } catch {
-//            print("That didn't work")
-//        }
-
+        
     }
     
     @objc func createTask() {
         let createTaskController = CreateTaskViewController()
         navigationController?.pushViewController(createTaskController, animated: true)
+    }
+    
+    @objc func handleBack() {
+        dismiss(animated: true, completion: nil)
     }
 
 }
