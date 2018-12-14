@@ -27,43 +27,47 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         guard let schedule = scheduleName else {
             return
         }
-        //print(schedule)
+        
         tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        
+        notificationToggle.addTarget(self, action: #selector(toggleValueDidChange), for: .valueChanged)
         
         print(realm)
         view.addGestureRecognizer(tap)
         
         self.createTaskButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
         
-        //if !schedule.isEmpty {
-        let schedules = realm.objects(Schedule.self).sorted(by: ["name"])
-        //filter("name == \(schedule)").first
-        if let currentSchedule = schedules.filter({$0.name == schedule}).first {
-            print(currentSchedule)
-        } else {
-            print("There are no Schedules")
-        }
         
-
+        
     }
+    
     
     override func loadView() {
         self.view = CreateTaskView()
     }
     
+    @objc func toggleValueDidChange(sender: UISwitch) {
+        print(sender.isOn)
+    }
     
     @objc func createTask() {
         checkForNotificationStatus()
         
-        let title = "Schedules"
-        let date = datePicker.date
+        guard let title = scheduleName else {
+            return
+        }
+        
         guard let task = titleTextField.text else {
             return
         }
         
+        let date = datePicker.date
+        let notificationEnabled = notificationToggle.isOn
         
+        if notificationEnabled == true {
+            createNotification(title: title, task: task, date: date)
+        }
         
-        createNotification(title: title, task: task, date: date)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -75,31 +79,47 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         newTask.time = stringDate
         
         
-        
-        var tasks = currentSchedule!.tasks
-    
-        
-        try! realm.write {
-            currentSchedule!.tasks = tasks
+        let schedules = realm.objects(Schedule.self).sorted(by: ["name"])
+        if let currentSchedule = schedules.filter({$0.name == title}).first {
+            do {
+                try! realm.write {
+                    currentSchedule.tasks.append(newTask)
+                }
+            } catch let error {
+                print(error)
+            }
+        } else {
+            print("There are no Schedules")
         }
+        
+        dismiss(animated: true, completion: nil)
        
     }
     
     func createNotification(title: String, task: String, date: Date) {
+        print("Notification being created")
         let title = "Schedules"
         let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .minute], from: date)
         
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = task
+        content.sound = UNNotificationSound.default
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        //let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         
         let request = UNNotificationRequest(identifier: "SchedulesNotification", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().delegate = self
         
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        //UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print(error)
+            }
+        }
     }
     
     func checkForNotificationStatus() {

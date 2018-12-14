@@ -17,10 +17,11 @@
 		E4543FCB21950EC1004B2540 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4543FC921950EC1004B2540 /* LaunchScreen.storyboard */; };
 		E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E48C5793219A4E5700D2019F /* Schedules.xcdatamodeld */; };
 		E49F7B1421C0564200A2E5E1 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F7B1321C0564200A2E5E1 /* UICollectionView+Extensions.swift */; };
+		E49F7B1621C4015E00A2E5E1 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F7B1521C4015E00A2E5E1 /* TaskListTableViewCell.swift */; };
+		E49F7B1821C4038800A2E5E1 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F7B1721C4038800A2E5E1 /* UIView+Extensions.swift */; };
 		E4ADA2D8219BDDB0006C6426 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ADA2D7219BDDB0006C6426 /* UIColor+Extensions.swift */; };
 		E4BD15A921974151000B974F /* ScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */; };
 		E4E0D4E621A3935F00A9B593 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D4E521A3935F00A9B593 /* TaskListViewController.swift */; };
-		E4E0D4E821A3939B00A9B593 /* TaskListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D4E721A3939B00A9B593 /* TaskListCollectionViewCell.swift */; };
 		E4E0D50D21AA0F9F00A9B593 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D50C21AA0F9F00A9B593 /* Schedule.swift */; };
 		E4E0D50F21AA12F300A9B593 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D50E21AA12F300A9B593 /* Task.swift */; };
 		E4E0D51121AA14AD00A9B593 /* ScheduleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E0D51021AA14AD00A9B593 /* ScheduleList.swift */; };
@@ -43,10 +44,11 @@
 		E4543FCC21950EC1004B2540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E48C5794219A4E5700D2019F /* Schedule.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Schedule.xcdatamodel; sourceTree = "<group>"; };
 		E49F7B1321C0564200A2E5E1 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
+		E49F7B1521C4015E00A2E5E1 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
+		E49F7B1721C4038800A2E5E1 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		E4ADA2D7219BDDB0006C6426 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4E0D4E521A3935F00A9B593 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		E4E0D4E721A3939B00A9B593 /* TaskListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4E0D50C21AA0F9F00A9B593 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		E4E0D50E21AA12F300A9B593 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E4E0D51021AA14AD00A9B593 /* ScheduleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleList.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				E4ADA2D7219BDDB0006C6426 /* UIColor+Extensions.swift */,
 				E49F7B1321C0564200A2E5E1 /* UICollectionView+Extensions.swift */,
+				E49F7B1721C4038800A2E5E1 /* UIView+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -140,7 +143,7 @@
 				E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */,
 				E42C616F21990A87002696AE /* CreateTaskView.swift */,
 				E42C617121990CE1002696AE /* SlideOutCreationMenu.swift */,
-				E4E0D4E721A3939B00A9B593 /* TaskListCollectionViewCell.swift */,
+				E49F7B1521C4015E00A2E5E1 /* TaskListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -282,13 +285,14 @@
 				E49F7B1421C0564200A2E5E1 /* UICollectionView+Extensions.swift in Sources */,
 				E4543FC321950EBF004B2540 /* HomeViewController.swift in Sources */,
 				E42C617221990CE1002696AE /* SlideOutCreationMenu.swift in Sources */,
+				E49F7B1621C4015E00A2E5E1 /* TaskListTableViewCell.swift in Sources */,
+				E49F7B1821C4038800A2E5E1 /* UIView+Extensions.swift in Sources */,
 				E4BD15A921974151000B974F /* ScheduleCollectionViewCell.swift in Sources */,
 				E4ADA2D8219BDDB0006C6426 /* UIColor+Extensions.swift in Sources */,
 				E4E0D50D21AA0F9F00A9B593 /* Schedule.swift in Sources */,
 				E42C617021990A87002696AE /* CreateTaskView.swift in Sources */,
 				E4E0D51121AA14AD00A9B593 /* ScheduleList.swift in Sources */,
 				E4E0D50F21AA12F300A9B593 /* Task.swift in Sources */,
-				E4E0D4E821A3939B00A9B593 /* TaskListCollectionViewCell.swift in Sources */,
 				E4543FC121950EBF004B2540 /* AppDelegate.swift in Sources */,
 				E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */,
 				E42C616E21990A6C002696AE /* CreateTaskViewController.swift in Sources */,

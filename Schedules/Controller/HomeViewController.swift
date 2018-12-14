@@ -206,7 +206,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         scheduleName = name
         print(scheduleName)
         let layout = UICollectionViewFlowLayout()
-        let taskViewController = TaskListViewController(collectionViewLayout: layout)
+        let taskViewController = TaskListViewController(style: .plain)
         navigationController?.pushViewController(taskViewController, animated: true)
     }
     

@@ -7,15 +7,17 @@
 //
 
 import UIKit
-//import CoreData
+import RealmSwift
 
-class TaskListViewController: UICollectionViewController {
+class TaskListViewController: UITableViewController {
     
-    //let tasks = [Task]()
+    var tasks = [Task]()
     let reuseId = "reuseId"
+    var realm: Realm!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        realm = try! Realm()
         
         navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -23,21 +25,34 @@ class TaskListViewController: UICollectionViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTask))
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: #selector(handleBack))
         
-        
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
-        collectionView.layoutMargins.top = 20
-        collectionView.register(TaskListCollectionViewCell.self, forCellWithReuseIdentifier: reuseId)
+        tableView.register(TaskListTableViewCell.self, forCellReuseIdentifier: reuseId)
         
-        collectionView.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
+        
+        
+//        collectionView.layoutMargins.top = 20
+//        collectionView.register(TaskListCollectionViewCell.self, forCellWithReuseIdentifier: reuseId)
+//
+//        collectionView.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
         
         loadData()
+        tableView.reloadData()
 
     }
     
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(collectionViewLayout: layout)
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+    override func viewDidAppear(_ animated: Bool) {
+        loadData()
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+        tableView.reloadData()
+    }
+    
+    override init(style: UITableView.Style) {
+        super.init(style: style)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,7 +60,19 @@ class TaskListViewController: UICollectionViewController {
     }
     
     func loadData() {
+        let name = scheduleName!
         
+        let schedules = realm.objects(Schedule.self).sorted(by: ["name"])
+        
+        if let schedule = schedules.filter({$0.name == name}).first {
+            print(schedule)
+            tasks = Array(schedule.tasks)
+            
+            print(schedule.tasks)
+            
+        } else {
+            print("Not working")
+        }
     }
     
     @objc func createTask() {
@@ -56,5 +83,56 @@ class TaskListViewController: UICollectionViewController {
     @objc func handleBack() {
         dismiss(animated: true, completion: nil)
     }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) as! TaskListTableViewCell
+        cell.taskNameLabel.text = tasks[indexPath.row].name
+        cell.dateLabel.text = tasks[indexPath.row].time
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasks.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 
+}
+
+extension TaskListViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            
+            if cell.accessoryType != .none {
+                cell.accessoryType = .none
+            } else {
+                cell.accessoryType = .checkmark
+            }
+            
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+            
+            let schedules = realm.objects(Schedule.self).sorted(by: ["name"])
+            
+            if let schedule = schedules.filter({$0.name == scheduleName}).first {
+                do {
+                    try! realm.write {
+                        schedule.tasks.remove(at: indexPath.row)
+                    }
+                } catch let error {
+                    print(error)
+                }
+            }
+            tableView.reloadData()
+        }
+    }
 }
