@@ -32,9 +32,6 @@ class CreateTaskView: UIView {
     let titleTextField : UITextView = {
         let textField = UITextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        //        textField.placeholder = "Create Schedule"
-        //        textField.borderStyle = .roundedRect
-        //        textField.borderStyle = UITextField.BorderStyle.none
         textField.text = "Title"
         textField.isEditable = true
         textField.font = UIFont(name: "HelveticaNeue", size: 18)
@@ -48,7 +45,7 @@ class CreateTaskView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Click Me", for: UIControl.State.normal)
-        button.backgroundColor = UIColor.blue
+        button.backgroundColor = randomColors[0]
         
         
         return button
