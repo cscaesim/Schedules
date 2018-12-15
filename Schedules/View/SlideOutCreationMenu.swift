@@ -26,7 +26,8 @@ class SlideOutCreationMenu : UIView {
         inputTextField.backgroundColor = UIColor.white
         inputTextField.textColor = UIColor.black
         inputTextField.placeholder = "Schedule Name"
-        inputTextField.layer.cornerRadius = 15
+        inputTextField.layer.cornerRadius = 5
+        inputTextField.textAlignment = .center
         inputTextField.layer.masksToBounds = true
         
         

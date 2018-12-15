@@ -24,7 +24,7 @@ class SlideOutMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = .clear
+        view.backgroundColor = .white
         self.createButton.addTarget(self, action: #selector(createScheduleButtonPressed), for: .touchUpInside)
         
         view.layer.cornerRadius = 20

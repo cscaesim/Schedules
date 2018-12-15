@@ -11,10 +11,7 @@ import UIKit
 import RealmSwift
 
 
-var randomColors = [UIColor.init(red: 33/255, green: 150/255, blue: 243/255, alpha: 1.0),
-                    UIColor.init(red: 76/255, green: 75/255, blue: 150/255, alpha: 1.0),
-                    UIColor.init(red: 255/255, green: 152/255, blue: 0/255, alpha: 1.0),
-                    UIColor.init(red: 103/255, green: 58/255, blue: 183/255, alpha: 1.0)]
+
 
 var scheduleName: String!
 
@@ -102,6 +99,7 @@ class HomeViewController: UICollectionViewController {
         
         
     }
+
     
     func resetTableData() {
         realm = try! Realm()
@@ -215,6 +213,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ScheduleCollectionViewCell
         let schedule = schedules[indexPath.row]
         cell.nameLabel.text = schedule.name
+        cell.countLabel.text = String(schedule.tasks.count)
         return cell
     }
     
@@ -225,7 +224,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         print("supposed to delete \(indexPath.row)")
         let schedule = schedules[indexPath.row]
-        _ = schedule.value(forKey: "name") as? String
         
         let item = schedules[indexPath.row]
         schedules.remove(at: indexPath.row)

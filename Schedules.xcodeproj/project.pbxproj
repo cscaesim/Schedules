@@ -15,6 +15,7 @@
 		E4543FC321950EBF004B2540 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4543FC221950EBF004B2540 /* HomeViewController.swift */; };
 		E4543FC821950EC1004B2540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4543FC721950EC1004B2540 /* Assets.xcassets */; };
 		E4543FCB21950EC1004B2540 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4543FC921950EC1004B2540 /* LaunchScreen.storyboard */; };
+		E46E128521C45CFD000A30BB /* RandomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46E128421C45CFD000A30BB /* RandomColors.swift */; };
 		E48C5795219A4E5700D2019F /* Schedules.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E48C5793219A4E5700D2019F /* Schedules.xcdatamodeld */; };
 		E49F7B1421C0564200A2E5E1 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F7B1321C0564200A2E5E1 /* UICollectionView+Extensions.swift */; };
 		E49F7B1621C4015E00A2E5E1 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F7B1521C4015E00A2E5E1 /* TaskListTableViewCell.swift */; };
@@ -42,6 +43,7 @@
 		E4543FC721950EC1004B2540 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4543FCA21950EC1004B2540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4543FCC21950EC1004B2540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E46E128421C45CFD000A30BB /* RandomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColors.swift; sourceTree = "<group>"; };
 		E48C5794219A4E5700D2019F /* Schedule.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Schedule.xcdatamodel; sourceTree = "<group>"; };
 		E49F7B1321C0564200A2E5E1 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		E49F7B1521C4015E00A2E5E1 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				E4E0D50C21AA0F9F00A9B593 /* Schedule.swift */,
 				E4E0D50E21AA12F300A9B593 /* Task.swift */,
 				E4E0D51021AA14AD00A9B593 /* ScheduleList.swift */,
+				E46E128421C45CFD000A30BB /* RandomColors.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			files = (
 				E42C617421990DB1002696AE /* SlideOutMenuViewController.swift in Sources */,
 				E4E0D4E621A3935F00A9B593 /* TaskListViewController.swift in Sources */,
+				E46E128521C45CFD000A30BB /* RandomColors.swift in Sources */,
 				E49F7B1421C0564200A2E5E1 /* UICollectionView+Extensions.swift in Sources */,
 				E4543FC321950EBF004B2540 /* HomeViewController.swift in Sources */,
 				E42C617221990CE1002696AE /* SlideOutCreationMenu.swift in Sources */,

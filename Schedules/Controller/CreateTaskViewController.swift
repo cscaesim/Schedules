@@ -22,6 +22,8 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         super.viewDidLoad()
         realm = try! Realm()
         
+        UNUserNotificationCenter.current().delegate = self
+        
         navigationItem.title = "New Task"
         
         guard let schedule = scheduleName else {
@@ -32,7 +34,7 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         
         notificationToggle.addTarget(self, action: #selector(toggleValueDidChange), for: .valueChanged)
         
-        print(realm)
+        //print(realm)
         view.addGestureRecognizer(tap)
         
         self.createTaskButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
@@ -64,9 +66,9 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         let date = datePicker.date
         let notificationEnabled = notificationToggle.isOn
         
-        if notificationEnabled == true {
+        //if notificationEnabled == true {
             createNotification(title: title, task: task, date: date)
-        }
+        //}
         
         
         let dateFormatter = DateFormatter()
@@ -99,27 +101,42 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
     func createNotification(title: String, task: String, date: Date) {
         print("Notification being created")
         let title = "Schedules"
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .minute], from: date)
+        let triggerDate = Calendar.current.dateComponents([.month, .day, .minute], from: date)
+        var components = DateComponents()
+        //print(triggerDate)
+        
+        //components.year = triggerDate.year
+        components.month = triggerDate.month
+        components.day = triggerDate.day
+        components.minute = triggerDate.minute
         
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = task
         content.sound = UNNotificationSound.default
         
+        print(components)
+        
+        
+        
         //let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: date.timeIntervalSinceNow, repeats: false)
+        //let trigger = UNCalendarNotificationTrigger.init(dateMatching: components, repeats: false)
         
         let request = UNNotificationRequest(identifier: "SchedulesNotification", content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().delegate = self
+        
         
         //UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
         UNUserNotificationCenter.current().add(request) { (error) in
             if let error = error {
                 print(error)
+            } else {
+                print("Making Notification successful")
             }
         }
+        
     }
     
     func checkForNotificationStatus() {
