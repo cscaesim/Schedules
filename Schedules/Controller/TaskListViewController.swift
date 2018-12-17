@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+
+
 class TaskListViewController: UITableViewController {
     
     var tasks = [Task]()
@@ -28,13 +30,6 @@ class TaskListViewController: UITableViewController {
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         tableView.register(TaskListTableViewCell.self, forCellReuseIdentifier: reuseId)
-        
-        
-        
-//        collectionView.layoutMargins.top = 20
-//        collectionView.register(TaskListCollectionViewCell.self, forCellWithReuseIdentifier: reuseId)
-//
-//        collectionView.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
         
         loadData()
         tableView.reloadData()
@@ -86,6 +81,7 @@ class TaskListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) as! TaskListTableViewCell
+        
         cell.taskNameLabel.text = tasks[indexPath.row].name
         cell.dateLabel.text = tasks[indexPath.row].time
         
@@ -101,6 +97,8 @@ class TaskListViewController: UITableViewController {
     }
 
 }
+
+
 
 extension TaskListViewController {
     

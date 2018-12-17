@@ -9,6 +9,7 @@
 import RealmSwift
 
 class Schedule: Object {
+    
     @objc dynamic var name: String?
     var tasks = List<Task>()
     

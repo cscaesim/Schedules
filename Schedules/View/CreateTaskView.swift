@@ -8,7 +8,11 @@
 
 import UIKit
 
+
+
 class CreateTaskView: UIView {
+    
+    var layoutGuide : UILayoutGuide!
     
     var containerView : UIView = {
         let view = UIView()
@@ -18,7 +22,6 @@ class CreateTaskView: UIView {
         view.layer.masksToBounds = true
         //view.backgroundColor = UIColor.blue
         
-        
         return view
     }()
     
@@ -26,6 +29,7 @@ class CreateTaskView: UIView {
         let label = UILabel()
         label.textColor = UIColor.lightGray
         label.text = "Enter title here"
+        
         return label
     }()
     
@@ -37,7 +41,8 @@ class CreateTaskView: UIView {
         textField.font = UIFont(name: "HelveticaNeue", size: 18)
         textField.textColor = UIColor.lightGray
         textField.backgroundColor = UIColor.white
-        textField.scrollsToTop = true
+        textField.scrollsToTop = false
+        
         return textField
     }()
     
@@ -47,7 +52,6 @@ class CreateTaskView: UIView {
         button.setTitle("Click Me", for: UIControl.State.normal)
         button.backgroundColor = randomColors[0]
         
-        
         return button
     }()
     
@@ -56,6 +60,8 @@ class CreateTaskView: UIView {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.timeZone = NSTimeZone.local
         picker.backgroundColor = UIColor.white
+        
+        
         return picker
     }()
     
@@ -64,6 +70,7 @@ class CreateTaskView: UIView {
         switcher.translatesAutoresizingMaskIntoConstraints = false
         switcher.backgroundColor = UIColor.white
         switcher.layoutMargins.top = 50
+        
         return switcher
     }()
     
@@ -80,8 +87,9 @@ class CreateTaskView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
+        
+        layoutGuide = self.safeAreaLayoutGuide
         
         addSubview(titleTextField)
         addSubview(datePicker)
@@ -99,15 +107,16 @@ class CreateTaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func setupViews() {
         
         let reminderHeight: CGFloat = 32
         
         //noteTextField
-        titleTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 70).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: self.layoutGuide.topAnchor, constant: 10).isActive = true
         titleTextField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         titleTextField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        titleTextField.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        titleTextField.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
         //notification label
         reminderLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 35).isActive = true
@@ -122,17 +131,17 @@ class CreateTaskView: UIView {
         notificationToggle.heightAnchor.constraint(equalToConstant: reminderHeight).isActive = true
         
         //date picker
-        datePicker.topAnchor.constraint(equalTo: notificationToggle.bottomAnchor, constant: 10).isActive = true
+        datePicker.topAnchor.constraint(equalTo: notificationToggle.bottomAnchor, constant: 0).isActive = true
         datePicker.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         datePicker.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        datePicker.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         //Create button
         //createButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 100).isActive = true
         createButton.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         createButton.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         createButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        createButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        createButton.bottomAnchor.constraint(equalTo: self.layoutGuide.bottomAnchor, constant: 0).isActive = true
     }
 }
 

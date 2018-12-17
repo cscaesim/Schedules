@@ -23,6 +23,7 @@ class SlideOutMenuViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        print("SlideOutViewDidLoad")
         super.viewDidLoad()
         view.backgroundColor = .white
         self.createButton.addTarget(self, action: #selector(createScheduleButtonPressed), for: .touchUpInside)

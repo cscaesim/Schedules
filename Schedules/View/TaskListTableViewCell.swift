@@ -25,6 +25,7 @@ class TaskListTableViewCell : UITableViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .left
         label.numberOfLines = 3
+        
         return label
     }()
     
@@ -34,6 +35,7 @@ class TaskListTableViewCell : UITableViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .left
         label.numberOfLines = 1
+        
         return label
     }()
     
@@ -50,7 +52,7 @@ class TaskListTableViewCell : UITableViewCell {
     }
     
     func setupViews() {
-        taskNameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 0, paddingRight: 0, width: frame.size.width - 80, height: 0, enableInsets: false)
+        taskNameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 0, paddingRight: 0, width: frame.size.width - 40, height: 0, enableInsets: false)
         dateLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: frame.size.width / 2, height: 15, enableInsets: false)
     }
 }

@@ -143,10 +143,10 @@
 		E4BD15AB21976754000B974F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */,
 				E42C616F21990A87002696AE /* CreateTaskView.swift */,
 				E42C617121990CE1002696AE /* SlideOutCreationMenu.swift */,
 				E49F7B1521C4015E00A2E5E1 /* TaskListTableViewCell.swift */,
+				E4BD15A821974151000B974F /* ScheduleCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

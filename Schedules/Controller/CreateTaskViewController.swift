@@ -12,7 +12,6 @@ import RealmSwift
 
 class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelegate {
     
-    
     var tap: UIGestureRecognizer!
     
     var currentSchedule: Schedule?
@@ -30,16 +29,17 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
             return
         }
         
+        titleTextField.delegate = self
+        
         tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         
         notificationToggle.addTarget(self, action: #selector(toggleValueDidChange), for: .valueChanged)
         
-        //print(realm)
         view.addGestureRecognizer(tap)
         
         self.createTaskButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
         
-        
+        datePicker.isEnabled = false
         
     }
     
@@ -50,6 +50,13 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
     
     @objc func toggleValueDidChange(sender: UISwitch) {
         print(sender.isOn)
+        
+        if sender.isOn {
+            datePicker.isEnabled = true
+        } else {
+            datePicker.isEnabled = false
+        }
+        
     }
     
     @objc func createTask() {
@@ -63,12 +70,20 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
             return
         }
         
+        let currentDate = Date()
         let date = datePicker.date
         let notificationEnabled = notificationToggle.isOn
         
-        //if notificationEnabled == true {
-            createNotification(title: title, task: task, date: date)
-        //}
+        if notificationEnabled == true {
+            if (date < currentDate) {
+                let alert = UIAlertController(title: "Older date", message: "Invalid Date Selection", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                createNotification(title: title, task: task, date: date)
+            }
+            
+        }
         
         
         let dateFormatter = DateFormatter()
@@ -94,18 +109,18 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
             print("There are no Schedules")
         }
         
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        titleTextField.text = ""
        
     }
     
     func createNotification(title: String, task: String, date: Date) {
         print("Notification being created")
-        let title = "Schedules"
-        let triggerDate = Calendar.current.dateComponents([.month, .day, .minute], from: date)
-        var components = DateComponents()
-        //print(triggerDate)
         
-        //components.year = triggerDate.year
+        let title = "Task Reminder"
+        let triggerDate = Calendar.current.dateComponents([.month, .day, .minute], from: date)
+        
+        var components = DateComponents()
         components.month = triggerDate.month
         components.day = triggerDate.day
         components.minute = triggerDate.minute
@@ -124,10 +139,6 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         //let trigger = UNCalendarNotificationTrigger.init(dateMatching: components, repeats: false)
         
         let request = UNNotificationRequest(identifier: "SchedulesNotification", content: content, trigger: trigger)
-        
-        
-        
-        //UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
         UNUserNotificationCenter.current().add(request) { (error) in
             if let error = error {
@@ -166,8 +177,6 @@ extension CreateTaskViewController: UITextViewDelegate {
             titleTextField.text = ""
             titleTextField.textColor = UIColor.black
         }
-        
-        titleTextField.becomeFirstResponder()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -176,8 +185,6 @@ extension CreateTaskViewController: UITextViewDelegate {
             titleTextField.textColor = UIColor.lightGray
             
         }
-        
-        titleTextField.resignFirstResponder()
     }
 }
 

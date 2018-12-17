@@ -7,10 +7,7 @@
 //
 
 import UIKit
-//import CoreData
 import RealmSwift
-
-
 
 
 var scheduleName: String!
@@ -26,6 +23,8 @@ class HomeViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("View did load")
+        
         realm = try! Realm()
         checkIfEmpty()
         
@@ -35,7 +34,7 @@ class HomeViewController: UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        print("View did load")
+        
         let result = realm.objects(Schedule.self)
         
         schedules = Array(result)
@@ -49,9 +48,6 @@ class HomeViewController: UICollectionViewController {
         navigationItem.title = "Schedules"
         navigationController?.navigationBar.barTintColor = randomColors[0]
         navigationController?.navigationBar.barStyle = .black
-        
-        
-        
         
         collectionView.backgroundColor = UIColor.init(red: 230/255, green: 233/255, blue: 239/255, alpha: 1.2)
         
@@ -140,12 +136,15 @@ class HomeViewController: UICollectionViewController {
         
     }
     
-    
     func checkIfEmpty() {
         if schedules.isEmpty {
-            collectionView.setEmptyMessage()
+       
+            self.collectionView.setEmptyMessage()
+            
         } else {
-            collectionView.restore()
+
+            self.collectionView.restore()
+            
         }
     }
     
@@ -203,7 +202,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         }
         scheduleName = name
         print(scheduleName)
-        let layout = UICollectionViewFlowLayout()
         let taskViewController = TaskListViewController(style: .plain)
         navigationController?.pushViewController(taskViewController, animated: true)
     }
@@ -214,6 +212,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let schedule = schedules[indexPath.row]
         cell.nameLabel.text = schedule.name
         cell.countLabel.text = String(schedule.tasks.count)
+        
         return cell
     }
     
@@ -223,7 +222,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         print("supposed to delete \(indexPath.row)")
-        let schedule = schedules[indexPath.row]
+        //let schedule = schedules[indexPath.row]
         
         let item = schedules[indexPath.row]
         schedules.remove(at: indexPath.row)
@@ -254,12 +253,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 0.0, bottom: 0.0, right: 0.0)
     }
     
-   
 }
 
 
 
 extension HomeViewController {
+    
     func addSlideOutMenu() {
         let bottomViewVC = SlideOutMenuViewController()
 
@@ -276,6 +275,7 @@ extension HomeViewController {
 }
 
 extension HomeViewController: UIGestureRecognizerDelegate {
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
         //IF FALSE DISABLED COLLECTIONVIEW VERTICAL SCROLLING
@@ -283,22 +283,4 @@ extension HomeViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension UICollectionView {
-    
-    func setEmptyMessage() {
-        
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
-        messageLabel.text = "You currently have no schedules created! Why not create one?"
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.textColor = UIColor.black
-        messageLabel.font = UIFont(name: "TrebuchetMS-Bold", size: 20)
-        messageLabel.sizeToFit()
-        
-        self.backgroundView = messageLabel
-    }
-    
-    func restore() {
-        self.backgroundView = nil
-    }
-}
+

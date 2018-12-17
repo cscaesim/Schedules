@@ -13,15 +13,20 @@ import UIKit
 class SlideOutCreationMenu : UIView {
     
     let slideOutMenuIndicator: UIView = {
+        
         let view = UIView()
+        
         view.backgroundColor = UIColor.white
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
+        
         return view
     }()
     
     let titleTextField: UITextField = {
+        
         let inputTextField = UITextField()
+        
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
         inputTextField.backgroundColor = UIColor.white
         inputTextField.textColor = UIColor.black
@@ -35,14 +40,18 @@ class SlideOutCreationMenu : UIView {
     }()
     
     let addButton : UIButton = {
+        
         let button = UIButton()
+        
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Add", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitle("Create", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        button.backgroundColor = UIColor.green
+//        button.backgroundColor = UIColor.green
+        button.backgroundColor = randomColors[0]
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
+        
         return button
     }()
     
