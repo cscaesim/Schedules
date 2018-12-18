@@ -76,10 +76,12 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         
         if notificationEnabled == true {
             if (date < currentDate) {
+                print("Can't make notification")
                 let alert = UIAlertController(title: "Older date", message: "Invalid Date Selection", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } else {
+                print("Creating notification")
                 createNotification(title: title, task: task, date: date)
             }
             
@@ -146,6 +148,10 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
             } else {
                 print("Making Notification successful")
             }
+        }
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (request) in
+            print("Pending requests: \(request)")
         }
         
     }
