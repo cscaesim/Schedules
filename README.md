@@ -16,7 +16,9 @@ I'm still deciding if I want to keep the pull up view, it's both handly and very
 
 
 The Reminders Creation:
+
 ![Screenshot](ReminderCreation.png)
+
 
 
 Reminders/Tasks list (I need to fix the date formatting)
@@ -27,3 +29,5 @@ Reminders/Tasks list (I need to fix the date formatting)
 
 
 I'm hoping to get this up on the iOS App Store soon (completely free, no ads or any of that).
+
+But if you want to run it from github, download it, install the cocoapods, and should be good to go!
