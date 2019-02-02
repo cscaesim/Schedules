@@ -83,6 +83,7 @@ class TaskListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) as! TaskListTableViewCell
         
         cell.taskNameLabel.text = tasks[indexPath.row].name
+        let date = 
         cell.dateLabel.text = tasks[indexPath.row].time
         
         return cell

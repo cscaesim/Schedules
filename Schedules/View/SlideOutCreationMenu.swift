@@ -16,7 +16,7 @@ class SlideOutCreationMenu : UIView {
         
         let view = UIView()
         
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
         

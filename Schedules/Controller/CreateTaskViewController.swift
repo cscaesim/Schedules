@@ -89,7 +89,7 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         let stringDate = dateFormatter.string(from: date)
         
         let newTask = Task()
@@ -140,7 +140,7 @@ class CreateTaskViewController: UIViewController, UNUserNotificationCenterDelega
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: date.timeIntervalSinceNow, repeats: false)
         //let trigger = UNCalendarNotificationTrigger.init(dateMatching: components, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "SchedulesNotification", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: String(content.title), content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request) { (error) in
             if let error = error {

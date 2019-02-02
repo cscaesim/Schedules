@@ -115,6 +115,7 @@ class HomeViewController: UICollectionViewController {
         checkIfEmpty()
     }
     
+    
     public func save(name: String) {
         print("This get called")
         
@@ -136,6 +137,7 @@ class HomeViewController: UICollectionViewController {
         
     }
     
+    
     func checkIfEmpty() {
         if schedules.isEmpty {
        
@@ -148,9 +150,11 @@ class HomeViewController: UICollectionViewController {
         }
     }
     
+    
     @objc func panCell() {
         
     }
+    
     
     func removeGesture() {
         print("removing tap gesture for keyboard")
